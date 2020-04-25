@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+import faker from 'faker';
+
+import Contacts from "./Contacts.jsx";
+
+
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.addContact = this.addContact.bind(this);
+  }
+
+  state = {
+    contacts: [{
+      name: faker.name.firstName() + " " + faker.name.lastName(),
+      phone: faker.phone.phoneNumber(),
+    },{
+      name: faker.name.firstName() + " " + faker.name.lastName(),
+      phone: faker.phone.phoneNumber(),
+    },{
+      name: faker.name.firstName() + " " + faker.name.lastName(),
+      phone: faker.phone.phoneNumber(),
+    },{
+      name: faker.name.firstName() + " " + faker.name.lastName(),
+      phone: faker.phone.phoneNumber(),
+    },{
+      name: faker.name.firstName() + " " + faker.name.lastName(),
+      phone: faker.phone.phoneNumber(),
+    }]
+  }
+
+  addContact(contact) {
+    console.log(contact);
+
+    const {contacts} = this.state;
+    contacts.push(contact);
+
+    this.setState({
+      contacts: contacts
+    });
+  }
+
+
+  render() {
+    return (
+      <div className="App">
+        <Contacts addContact={this.addContact} contacts={this.state.contacts} />
+      </div>
+    );
+  }
 }
 
 export default App;
